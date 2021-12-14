@@ -1,25 +1,49 @@
 <template>
   <div>
     <h1>Problems</h1>
-    <ul>
-      <li v-for="article of articles" :key="article.slug">
-        <NuxtLink :to="'/problems/' + article.slug">
+
+    <div class="list-group px-5 mx-5 py-2">
+      <NuxtLink
+        v-for="question in questions"
+        :key="question.slug"
+        :to="'/problems/' + question.slug"
+        class="list-group-item list-group-item-action d-flex gap-3 py-3 bg-dark text-white m-1 rounded-1"
+        aria-current="true"
+      >
+        <div class="d-flex gap-2 w-100 justify-content-between">
           <div>
-            <h2>{{ article.title }}</h2>
+            <h6 class="mb-0">{{ question.title }}</h6>
+            <p class="mb-0 opacity-75">
+              {{ formatDate(question.createdAt) }}
+            </p>
           </div>
-        </NuxtLink>
-      </li>
-    </ul>
+          <small class="opacity-50 text-nowrap">{{ question.creator }}</small>
+        </div>
+      </NuxtLink>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  async asyncData({ params, $content }) {
-    const page = await $content("questions/" + "1").fetch();
-    return {
-      page,
-    };
+  async fetch() {
+    this.questions = await this.$content("questions")
+      .only(["slug", "title", "createdAt", "creator"])
+      .sortBy("createdAt", "asc")
+      .fetch();
+  },
+  data() {
+    return { questions: null };
+  },
+  methods: {
+    formatDate(date) {
+      const options = { year: "numeric", month: "long", day: "numeric" };
+      return (
+        new Date(date).toLocaleDateString("en-GB", options) +
+        " " +
+        new Date(date).toLocaleTimeString("en-GB")
+      );
+    },
   },
 };
 </script>

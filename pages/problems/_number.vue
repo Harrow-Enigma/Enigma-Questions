@@ -85,6 +85,15 @@
               >
                 Run
               </button>
+
+              <!--
+              <button
+                type="button"
+                class="btn btn-success btn-lg"
+                v-on:click="submit"
+              >
+                Submit
+              </button> -->
             </div>
 
             <div v-if="!loaded">
@@ -105,20 +114,8 @@
       <div class="col-md-6">
         <h2>Stuck?</h2>
         <p>
-          Ready to beyond the starter template? Check out these open source
-          projects that you can quickly duplicate to a new GitHub repository.
+          {{ page.hint }}
         </p>
-        <ul class="icon-list">
-          <li>
-            <a
-              href="https://github.com/twbs/bootstrap-npm-starter"
-              rel="noopener"
-              target="_blank"
-              >Bootstrap npm starter</a
-            >
-          </li>
-          <li class="text-muted">Bootstrap Parcel starter (coming soon!)</li>
-        </ul>
       </div>
 
       <div class="col-md-6">
@@ -133,6 +130,10 @@
             <tr>
               <td>Updated</td>
               <td>{{ formatDate(page.updatedAt) }}</td>
+            </tr>
+            <tr>
+              <td>Made by</td>
+              <td>{{ page.creator }}</td>
             </tr>
             <tr>
               <td>Function Name</td>
