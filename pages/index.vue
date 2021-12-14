@@ -16,9 +16,9 @@
 <script>
 export default {
   async asyncData({ $content, params }) {
-    const articles = await $content('questions', params.slug)
-      .only(['title', 'slug'])
-      .sortBy('createdAt', 'asc')
+    const articles = await $content("questions", params.slug)
+      .only(["title", "slug"])
+      .sortBy("createdAt", "asc")
       .fetch();
 
     return {
