@@ -32,12 +32,15 @@
             ><i class="material-icons" style="font-size: inherit">home</i>
           </NuxtLink>
         </li>
-        <li class="page-item">
-          <NuxtLink class="page-link" to="/problems/1">1</NuxtLink>
+        <li
+          class="page-item"
+          v-for="question in questions"
+          :key="question.slug"
+        >
+          <NuxtLink class="page-link" :to="'/problems/' + question.slug">
+            {{ question.slug }}</NuxtLink
+          >
         </li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item"><a class="page-link" href="#">Next</a></li>
       </ul>
     </nav>
   </div>
@@ -56,4 +59,13 @@
 }
 </style>
 
-<script></script>
+<script>
+export default {
+  async fetch() {
+    this.questions = await this.$content("questions").only(["slug"]).fetch();
+  },
+  data() {
+    return { questions: null };
+  },
+};
+</script>

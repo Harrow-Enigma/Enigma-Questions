@@ -11,7 +11,7 @@
             aria-expanded="false"
             aria-controls="flush-collapseOne"
           >
-            <h1>Question</h1>
+            <h1>Question {{ $route.params.number }}</h1>
           </button>
         </h2>
         <div
@@ -122,33 +122,28 @@
       </div>
 
       <div class="col-md-6">
-        <h2>Guides</h2>
-        <p>
-          Read more detailed instructions and documentation on using or
-          contributing to Bootstrap.
-        </p>
-        <ul class="icon-list">
-          <li>
-            <a href="/docs/5.1/getting-started/introduction/"
-              >Bootstrap quick start guide</a
-            >
-          </li>
-          <li>
-            <a href="/docs/5.1/getting-started/webpack/"
-              >Bootstrap Webpack guide</a
-            >
-          </li>
-          <li>
-            <a href="/docs/5.1/getting-started/parcel/"
-              >Bootstrap Parcel guide</a
-            >
-          </li>
-          <li>
-            <a href="/docs/5.1/getting-started/contribute/"
-              >Contributing to Bootstrap</a
-            >
-          </li>
-        </ul>
+        <h2>Details</h2>
+        <p>Details regarding the question</p>
+        <table class="table table-dark table-striped">
+          <tbody>
+            <tr>
+              <td>Created</td>
+              <td>{{ formatDate(page.createdAt) }}</td>
+            </tr>
+            <tr>
+              <td>Updated</td>
+              <td>{{ formatDate(page.updatedAt) }}</td>
+            </tr>
+            <tr>
+              <td>Function Name</td>
+              <td>{{ page.functionname + "()" }}</td>
+            </tr>
+            <tr>
+              <td>Path</td>
+              <td>{{ page.path }}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </main>
@@ -159,33 +154,41 @@ export default {
   ssr: false,
   data() {
     return {
-      code: '# Paste your solution here',
+      code: "# Paste your solution here",
       pyodide: null,
-      output: '',
+      output: "",
       loaded: false,
       tests: [],
     };
   },
   async mounted() {
     this.pyodide = await loadPyodide({
-      indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.18.1/full/',
+      indexURL: "https://cdn.jsdelivr.net/pyodide/v0.18.1/full/",
     });
     this.loaded = true;
   },
-  async asyncData({ $content }) {
-    const page = await $content('questions/1').fetch();
+  async asyncData({ params, $content }) {
+    const page = await $content("questions/" + params.number).fetch();
     return {
       page,
     };
   },
   methods: {
+    formatDate(date) {
+      const options = { year: "numeric", month: "long", day: "numeric" };
+      return (
+        new Date(date).toLocaleDateString("en-GB", options) +
+        " " +
+        new Date(date).toLocaleTimeString("en-GB")
+      );
+    },
     run: async function main() {
-      const { tests } = await this.$content('questions/1')
-        .only(['tests'])
+      const { tests } = await this.$content("questions/1")
+        .only(["tests"])
         .fetch();
 
-      const { functionname } = await this.$content('questions/1')
-        .only(['functionname'])
+      const { functionname } = await this.$content("questions/1")
+        .only(["functionname"])
         .fetch();
 
       this.tests = tests;
@@ -194,42 +197,42 @@ export default {
         this.pyodide
           .runPythonAsync(
             this.code +
-              '\n' +
+              "\n" +
               String(functionname) +
-              '(' +
+              "(" +
               this.tests[i][0] +
-              ')'
+              ")"
           )
           .then((output) => {
-            let success = '';
+            let success = "";
             if (this.tests[i][1] == output) {
-              success = '✔️';
+              success = "✔️";
             } else {
-              success = '❌';
+              success = "❌";
             }
 
             this.output =
               this.output +
-              'INPUT: ' +
+              "INPUT: " +
               this.tests[i][0] +
-              ' // ' +
-              'OUTPUT: ' +
+              " // " +
+              "OUTPUT: " +
               output +
-              ' // ' +
-              'EXPECTED: ' +
+              " // " +
+              "EXPECTED: " +
               this.tests[i][1] +
-              ' | ' +
+              " | " +
               success +
-              '\n';
+              "\n";
 
-            var textarea = document.getElementById('console');
+            var textarea = document.getElementById("console");
             textarea.scrollTop = textarea.scrollHeight;
           })
 
           .catch((err) => (this.output = err));
       }
 
-      this.output = this.output + '\n';
+      this.output = this.output + "\n";
     },
   },
 };

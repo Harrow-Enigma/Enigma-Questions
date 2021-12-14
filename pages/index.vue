@@ -15,14 +15,10 @@
 
 <script>
 export default {
-  async asyncData({ $content, params }) {
-    const articles = await $content("questions", params.slug)
-      .only(["title", "slug"])
-      .sortBy("createdAt", "asc")
-      .fetch();
-
+  async asyncData({ params, $content }) {
+    const page = await $content("questions/" + "1").fetch();
     return {
-      articles,
+      page,
     };
   },
 };
