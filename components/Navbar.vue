@@ -16,12 +16,7 @@
         </div>
         <div class="col">
           <p
-            class="
-              fs-5
-              px-2
-              d-none d-sm-block
-              animate__animated animate__pulse animate__delay-1s
-            "
+            class="fs-5 px-2 d-none d-sm-block animate__animated animate__pulse animate__delay-1s"
             style="margin-bottom: 0px"
           >
             A series of computational problems by Team Enigma.
@@ -34,12 +29,15 @@
       <ul class="pagination justify-content-center">
         <li class="page-item">
           <NuxtLink class="page-link" to="/"
-            ><i class="material-icons">home</i>
+            ><i class="material-icons" style="font-size: inherit">home</i>
           </NuxtLink>
         </li>
         <li class="page-item">
           <NuxtLink class="page-link" to="/problems/1">1</NuxtLink>
         </li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item"><a class="page-link" href="#">Next</a></li>
       </ul>
     </nav>
   </div>
