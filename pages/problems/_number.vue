@@ -132,6 +132,10 @@
               <td>{{ formatDate(page.updatedAt) }}</td>
             </tr>
             <tr>
+              <td>Original Deadline</td>
+              <td>{{ page.deadline }}</td>
+            </tr>
+            <tr>
               <td>Made by</td>
               <td>{{ page.creator }}</td>
             </tr>
