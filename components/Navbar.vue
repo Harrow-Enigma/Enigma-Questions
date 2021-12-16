@@ -14,9 +14,9 @@
         <div class="col-4">
           <h1 class="animate__animated animate__pulse">The Enigma Questions</h1>
         </div>
-        <div class="col">
+        <div class="col d-none d-sm-block">
           <p
-            class="fs-5 px-2 d-none d-sm-block animate__animated animate__pulse animate__delay-1s"
+            class="fs-5 px-2 animate__animated animate__pulse animate__delay-1s"
             style="margin-bottom: 0px"
           >
             A series of computational problems by Team Enigma.
@@ -62,7 +62,10 @@
 <script>
 export default {
   async fetch() {
-    this.questions = await this.$content("questions").only(["slug"]).fetch();
+    this.questions = await this.$content("questions")
+      .only(["slug"])
+      .sortBy("createdAt", "asc")
+      .fetch();
   },
   data() {
     return { questions: null };
