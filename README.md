@@ -1,4 +1,4 @@
-# The Enigma Problems
+# The Enigma Questions
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/8bcde833-c080-433f-bbca-4761fca9933c/deploy-status)](https://app.netlify.com/sites/ecstatic-knuth-8514e7/deploys)
 
