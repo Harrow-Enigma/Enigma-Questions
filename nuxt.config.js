@@ -71,7 +71,5 @@ export default {
 
   target: "static",
 
-  serverMiddleware: {
-    "/api": "~/api",
-  },
+  serverMiddleware: {},
 };

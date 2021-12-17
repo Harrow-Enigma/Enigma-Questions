@@ -63,6 +63,12 @@
   </div>
 </template>
 
+<style scoped>
+submission {
+  font-family: monospace;
+}
+</style>
+
 <script>
 export default {
   props: ["page"],
