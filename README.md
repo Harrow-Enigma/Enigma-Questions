@@ -2,6 +2,9 @@
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/8bcde833-c080-433f-bbca-4761fca9933c/deploy-status)](https://app.netlify.com/sites/ecstatic-knuth-8514e7/deploys)
 
+![Team Enigma](https://img.shields.io/badge/Team%20Enigma-Harrow%20School-blue)
+![GitHub language count](https://img.shields.io/github/languages/count/Harrow-Enigma/Enigma-Questions) ![GitHub repo size](https://img.shields.io/github/issues/Harrow-Enigma/Enigma-Questions) ![GitHub repo size](https://img.shields.io/github/last-commit/Harrow-Enigma/Enigma-Questions)
+
 ## Overview
 
 A series of computational problems by Team Enigma.
