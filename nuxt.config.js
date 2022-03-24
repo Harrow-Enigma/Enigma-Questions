@@ -1,7 +1,7 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: "The Enigma Problems",
+    title: "The Enigma Questions",
     htmlAttrs: {
       lang: "en",
     },
