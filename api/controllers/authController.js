@@ -70,12 +70,16 @@ exports.postLogin = async (req, res, next) => {
 };
 
 exports.getUser = (req, res, next) => {
-  res.status(200).json({
-    user: {
-      id: loadedUser._id,
-      fullname: loadedUser.fullname,
-      email: loadedUser.email,
-      admin: loadedUser.admin,
-    },
-  });
+  if (loadedUser) {
+    res.status(200).json({
+      user: {
+        id: loadedUser._id,
+        fullname: loadedUser.fullname,
+        email: loadedUser.email,
+        admin: loadedUser.admin,
+      },
+    });
+  } else {
+    res.status(401).json({ message: "Please log in first" });
+  }
 };

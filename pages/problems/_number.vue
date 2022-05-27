@@ -110,8 +110,14 @@ export default {
   data() {
     return {
       loaded: false,
-      tests: []
+      tests: [],
     };
+  },
+  methods: {
+    async getQuestion({ params }) {
+      let res = await this.$store.dispatch("getQuestions");
+      this.questions = res.data;
+    },
   },
   /*
   async asyncData({ params, $content }) {
@@ -130,7 +136,7 @@ export default {
       );
     },
   }, */
-  components: { AutoSolution }
+  components: { AutoSolution },
 };
 </script>
 
