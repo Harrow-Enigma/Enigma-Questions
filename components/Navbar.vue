@@ -25,23 +25,78 @@
       </div>
     </header>
 
-    <nav aria-label="Page navigation example">
-      <ul class="pagination justify-content-center">
-        <li class="page-item">
-          <NuxtLink class="page-link" to="/"
-            ><i class="material-icons" style="font-size: inherit">home</i>
-          </NuxtLink>
-        </li>
-        <li
-          class="page-item"
-          v-for="question in questions"
-          :key="question.slug"
-        >
-          <NuxtLink class="page-link" :to="'/problems/' + question.slug">
-            {{ question.slug }}</NuxtLink
+    <nav class="navbar mb-3 border-bottom">
+      <div class="container-fluid">
+        <ul class="pagination">
+          <li class="page-item">
+            <NuxtLink class="page-link" to="/"
+              ><i class="material-icons" style="font-size: inherit">home</i>
+            </NuxtLink>
+          </li>
+          <li
+            class="page-item"
+            v-for="question in questions"
+            :key="question.slug"
           >
-        </li>
-      </ul>
+            <NuxtLink class="page-link" :to="'/problems/' + question.slug">
+              {{ question.slug }}</NuxtLink
+            >
+          </li>
+        </ul>
+
+        <div class="text-end d-flex">
+          <template v-if="!isAuthenticated">
+            <nuxt-link
+              type="button"
+              class="btn btn-outline-light me-2"
+              aria-current="page"
+              to="/auth/login"
+            >
+              Login
+            </nuxt-link>
+
+            <nuxt-link
+              type="button"
+              class="btn btn-primary"
+              aria-current="page"
+              to="/auth/register"
+            >
+              Register
+            </nuxt-link>
+          </template>
+
+          <template v-else>
+            <a
+              type="button"
+              class="btn btn-outline-light me-2"
+              aria-current="page"
+              to="#"
+              @click="logout"
+            >
+              Logout
+            </a>
+
+            <nuxt-link
+              type="button"
+              class="btn btn-warning me-2"
+              aria-current="page"
+              to="/profile"
+            >
+              Profile
+            </nuxt-link>
+
+            <nuxt-link
+              v-if="isAuthenticatedAdmin"
+              type="button"
+              class="btn btn-danger me-2"
+              aria-current="page"
+              to="/admin"
+            >
+              Admin Console
+            </nuxt-link>
+          </template>
+        </div>
+      </div>
     </nav>
   </div>
 </template>
@@ -61,14 +116,28 @@
 
 <script>
 export default {
+  methods: {
+    async logout() {
+      await this.$auth.logout();
+    }
+  },
+  computed: {
+    isAuthenticated() {
+      return this.$store.getters.isAuthenticated;
+    },
+    isAuthenticatedAdmin() {
+      return this.$store.getters.isAuthenticatedAdmin;
+    }
+  },
+  /*
   async fetch() {
     this.questions = await this.$content("questions")
       .only(["slug"])
       .sortBy("createdAt", "asc")
       .fetch();
-  },
+  },*/
   data() {
     return { questions: null };
-  },
+  }
 };
 </script>

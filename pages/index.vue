@@ -26,12 +26,13 @@
 
 <script>
 export default {
+  /*
   async fetch() {
     this.questions = await this.$content("questions")
       .only(["slug", "title", "createdAt", "creator"])
       .sortBy("createdAt", "asc")
       .fetch();
-  },
+  },*/
   data() {
     return { questions: null };
   },
@@ -43,8 +44,8 @@ export default {
         " " +
         new Date(date).toLocaleTimeString("en-GB")
       );
-    },
-  },
+    }
+  }
 };
 </script>
 

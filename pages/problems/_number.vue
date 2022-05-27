@@ -110,9 +110,10 @@ export default {
   data() {
     return {
       loaded: false,
-      tests: [],
+      tests: []
     };
   },
+  /*
   async asyncData({ params, $content }) {
     const page = await $content("questions/" + params.number).fetch();
     return {
@@ -128,8 +129,8 @@ export default {
         new Date(date).toLocaleTimeString("en-GB")
       );
     },
-  },
-  components: { AutoSolution },
+  }, */
+  components: { AutoSolution }
 };
 </script>
 
